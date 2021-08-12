@@ -1,3 +1,4 @@
+<% @article.tags.build %>
 <%= form_with(model: article) do |form| %>
   <% if article.errors.any? %>
     <div id="error_explanation">
@@ -20,6 +21,11 @@
     <%= form.label :body %>
     <%= form.text_area :body %>
   </div>
+
+  <h2>Tags</h2>
+  <%= render :partial => 'tags/form',
+             :locals => {:form => form}
+  %>
 
   <div class="actions">
     <%= form.submit %>
