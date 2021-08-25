@@ -1,10 +1,12 @@
 class ArticlesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_article, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:show, :index]
 
   # GET /articles or /articles.json
   def index
-    @articles = current_user.articles
+    # @articles = current_user.articles
+    @articles = Article.all
   end
 
   # GET /articles/1 or /articles/1.json
