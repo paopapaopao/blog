@@ -8,9 +8,9 @@
   <%= comment.body %>
 </p>
 
-<% if can? :destroy, comment %>
-    <%= link_to 'Destroy Comment', [comment.article, comment],
-                :confirm => 'Are you sure?',
-                :method => :delete
-    %>
+<% if policy(@article).destroy? %>
+  <%= link_to 'Destroy Comment', [comment.article, comment],
+              confirm: 'Are you sure?',
+              method: :delete
+  %>
 <% end %>
