@@ -63,4 +63,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'cancancan'
+gem 'pundit'
 gem 'rails_admin', '~> 2.0'
