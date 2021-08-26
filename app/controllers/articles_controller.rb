@@ -3,10 +3,14 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:show, :index]
 
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+
   # GET /articles or /articles.json
   def index
     # @articles = current_user.articles
-    @articles = Article.all
+    # @articles = Article.all
+    @articles = policy_scope(Article).reverse
   end
 
   # GET /articles/1 or /articles/1.json
@@ -16,6 +20,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
+    authorize @article
   end
 
   # GET /articles/1/edit
@@ -26,6 +31,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.user_id = current_user.id
+    authorize @article
 
     respond_to do |format|
       if @article.save
@@ -40,6 +46,7 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
+    authorize @article
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to @article, notice: "Article was successfully updated." }
@@ -64,6 +71,7 @@ class ArticlesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
+      authorize @article
     end
 
     # Only allow a list of trusted parameters through.
