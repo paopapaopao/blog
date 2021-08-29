@@ -7,8 +7,24 @@ class User < ApplicationRecord
 
   has_many :articles
 
-  # sends an email to the user after confirming their sign-up
-  def after_confirmation
-    UserMailer.welcome_user.deliver_later
+  after_update :user_approved
+  after_create :admin_new_user_approval
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    approved? ? super : :not_approved
+  end
+
+  def user_approved
+    if confirmed_at && approved?
+      UserMailer.user_approved.deliver_later
+    end
+  end
+
+  def admin_new_user_approval
+    UserMailer.admin_new_user_approval(id).deliver_later
   end
 end
