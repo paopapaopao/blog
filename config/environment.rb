@@ -11,9 +11,9 @@ ActionMailer::Base.smtp_settings = {
   port:                 465,
   domain:               'gmail.com',
   # email address devise will use to send emails (e.g. 'eadd@example.com')
-  user_name:            '',
+  user_name:            ENV['EMAIL_ADDRESS'],
   # password of the email address (e.g. 'password')
-  password:             '',
+  password:             ENV['EMAIL_PASSWORD'],
   authentication:       :plain,
   ssl:                  true,
   tsl:                  true,
