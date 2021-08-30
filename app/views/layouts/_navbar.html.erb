@@ -13,12 +13,11 @@
         <li class="nav-item">
           <a class="nav-link" href="/admin">Admin</a>
         </li>
-      <% else %>
-        <li class="nav-item">
-          <a class="nav-link" href="/articles">Articles</a>
-        </li>
       <% end %>
 
+      <li class="nav-item">
+        <a class="nav-link" href="/articles">Articles</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="#"><%= current_user.email %></a>
       </li>
