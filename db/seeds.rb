@@ -10,18 +10,21 @@ User.create(
   email: 'admin@example.com',
   password: :password,
   confirmed_at: Time.now.utc,
-  admin: true
+  admin: true,
+  approved: true
 )
 
 malakas = User.create(
   email: 'malakas@example.com',
   password: :password,
-  confirmed_at: Time.now.utc
+  confirmed_at: Time.now.utc,
+  approved: true
 )
 maganda = User.create(
   email: 'maganda@example.com',
   password: :password,
-  confirmed_at: Time.now.utc
+  confirmed_at: Time.now.utc,
+  approved: true
 )
 
 4.times do
