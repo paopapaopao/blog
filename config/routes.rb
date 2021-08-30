@@ -7,11 +7,9 @@ Rails.application.routes.draw do
 
   # allow only logged in users to access the articles and comments paths
   devise_scope :user do
-    authenticated :user do
-      namespace :users do
-        resources :articles do
-          resources :comments
-        end
+    authenticate :user do
+      resources :articles do
+        resources :comments
       end
     end
   end
