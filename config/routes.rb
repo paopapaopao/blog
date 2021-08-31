@@ -6,15 +6,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   # allow only logged in users to access the articles and comments paths
-  devise_scope :user do
-    authenticate :user do
-      resources :articles do
-        resources :comments
-      end
+  authenticate :user do
+    resources :articles do
+      resources :comments
     end
   end
 
-  # allow only users with attribute admin set to true to access the admin page
+  # allow only logged in users with attribute admin set to true to access the admin path
   authenticate :user, lambda { |u| u.admin == true } do
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end
