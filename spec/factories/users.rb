@@ -7,5 +7,7 @@ FactoryBot.define do
     # or
     # after(:build) { |u| u.skip_confirmation_notification! }
     # after(:create) { |u| u.confirm }
+
+    approved { true }
   end
 end
