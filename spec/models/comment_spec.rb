@@ -4,7 +4,10 @@ RSpec.describe Comment, type: :model do
   subject { build :comment }
 
   context 'When all attributes are valid' do
-    it { expect(subject).to be_valid }
+    it do
+      expect(subject).to be_valid
+      expect(subject.errors).to_not be_present
+    end
   end
 
   context 'Association with Article' do
