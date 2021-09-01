@@ -1,5 +1,4 @@
 class UserMailer < ApplicationMailer
-
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -22,7 +21,7 @@ class UserMailer < ApplicationMailer
 
     mail(
       # email address devise will use to send emails (e.g. 'eadd@example.com')
-      to: '',
+      to: ENV['EMAIL_ADDRESS'],
       subject: 'New user awaiting approval'
     )
   end
