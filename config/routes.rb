@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  # devise_for :users
+  devise_for :users
 
   # allow only logged in users to access the articles and comments paths
   authenticate :user do
