@@ -1,7 +1,7 @@
 = form.fields_for :tags do |tag_form|
-  .field
+  .form-group
     = tag_form.label :name, 'Tag:'
-    = tag_form.text_field :name
+    = tag_form.text_field :name, class: "form-control w-50"
   - unless tag_form.object.nil? || tag_form.object.new_record?
     .field
       = tag_form.label :_destroy, 'Remove:'
