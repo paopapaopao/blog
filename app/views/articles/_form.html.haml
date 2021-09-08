@@ -1,5 +1,5 @@
 - @article.tags.build
-= form_with(model: article) do |form|
+= form_with model: article, class: "was-validated" do |form|
   - if article.errors.any?
     #error_explanation
       %h2
@@ -8,14 +8,18 @@
       %ul
         - article.errors.each do |error|
           %li= error.full_message
-  .field
+  .form-group
     = form.label :name
-    = form.text_field :name
-  .field
+    = form.text_field :name, required: true, class: "form-control w-50"
+    .valid-feedback Valid
+    .invalid-feedback Invalid
+  .form-group
     = form.label :body
-    = form.text_area :body
+    = form.text_area :body, required: true, rows: 7, class: "form-control w-50"
+    .valid-feedback Valid
+    .invalid-feedback Invalid
   %h2 Tags
-  = render :partial => 'tags/form', |
+  = render :partial => "tags/form", |
     :locals => {:form => form}      |
   .actions
-    = form.submit
+    = form.submit class: "btn btn-success"
