@@ -1,0 +1,22 @@
+%nav.navbar.navbar-expand-sm.bg-dark.navbar-dark.fixed-top
+  / Brand/logo
+  %a.navbar-brand{:href => "#"} BLOG
+  / Links
+  %ul.navbar-nav
+    %li.nav-item
+      %a.nav-link{:href => "/"} Home
+    - if current_user
+      - if current_user.admin
+        %li.nav-item
+          %a.nav-link{:href => "/admin"} Admin
+      %li.nav-item
+        %a.nav-link{:href => "/articles"} Articles
+      %li.nav-item
+        %a.nav-link{:href => "#"}= current_user.email
+      %li.nav-item
+        %a.nav-link{"data-method" => "delete", :href => "/users/sign_out", :rel => "nofollow"} Sign out
+    - else
+      %li.nav-item
+        %a.nav-link{:href => "/users/sign_up"} Sign up
+      %li.nav-item
+        %a.nav-link{:href => "/users/sign_in"} Sign in
