@@ -1,21 +1,18 @@
 %p#notice= notice
+
 %h1 Articles
-%table.table.table-hover
-  %thead
-    %tr
-      %th Name
-      %th Body
-      %th Author
-      %th{:colspan => "3"}
-  %tbody
-    - @articles.each do |article|
-      %tr
-        %td= article.name
-        %td= article.body
-        %td= User.find(article.user_id).email
-        %td= link_to 'Show', article
-        - if policy(article).update?
-          %td= link_to 'Edit', edit_article_path(article)
-        - if policy(article).destroy?
-          %td= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
+- @articles.each do |article|
+  .d-sm-flex.flex-sm-column.p-sm-1
+    .card
+      .card-body
+        %h4.card-title
+          = link_to article.name, article
+        %h6.card-title
+          = User.find(article.user_id).email
+        %p.card-text
+          = article.body
+        %p.card-text
+          = article.tags.map { |t| t.name }.join(", ")
+        .btn-group
+          = button_to 'Edit', edit_article_path(article), method: :get, class: "btn btn-primary" if policy(article).update?
+          = button_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" if policy(article).destroy?
