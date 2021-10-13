@@ -2,7 +2,7 @@
   .container-fluid
     -# brand/logo
     %a.navbar-brand{href: root_path}
-      %img.rounded-pill{alt: "Avatar Logo", src: "https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png", style: "width:40px;"}/
+      %img.rounded-pill{src: "https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png", alt: "Brand/Logo", style: "width:40px;"}/
     -# collapsible navbar toggler
     %button.navbar-toggler{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapsible-navbar"}
       %span.navbar-toggler-icon
@@ -29,8 +29,6 @@
                 = link_to current_user.email, "#", class: "dropdown-item"
               %li
                 = link_to 'Sign out', destroy_user_session_path, "data-method" => "delete", rel: "nofollow", data: { confirm: 'Are you sure you want to sign out?' }, class: "dropdown-item"
-          -# %li.nav-item
-          -#   = link_to , class: "nav-link"
         - else
           %li.nav-item
             = link_to 'Sign in', new_user_session_path, class: "nav-link"
