@@ -1,18 +1,17 @@
 %p#notice= notice
 
-%h1 Articles
-- @articles.each do |article|
-  .d-sm-flex.flex-sm-column.p-sm-1
-    .card
-      .card-body
-        %h4.card-title
-          = link_to article.name, article
-        %h6.card-title
-          = User.find(article.user_id).email
-        %p.card-text
-          = article.body
-        %p.card-text
-          = article.tags.map { |t| t.name }.join(", ")
-        .btn-group
-          = button_to 'Edit', edit_article_path(article), method: :get, class: "btn btn-primary" if policy(article).update?
-          = button_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" if policy(article).destroy?
+= link_to 'New Article', new_article_path, class: "btn btn-success", data: { bs_toggle: 'modal', bs_target: '#newArticleModal', remote: true }
+
+-# Modal
+#newArticleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newArticleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#newArticleModalLabel.modal-title New Article
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      #newArticleForm
+
+#articles
+  %h1 Articles
+  - @articles.each do |article|
+    = render 'article', article: article

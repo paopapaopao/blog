@@ -1,0 +1,5 @@
+- if @article.errors.any?
+  alert('Error');
+- else
+  $("#articles").prepend("#{escape_javascript render('article', article: @article)}");
+  $(".close-modal").click();
