@@ -1,25 +1,28 @@
 - @article.tags.build
-= form_with model: article, class: "was-validated" do |form|
-  - if article.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(article.errors.count, "error")
-        prohibited this article from being saved:
-      %ul
-        - article.errors.each do |error|
-          %li= error.full_message
-  .form-group
-    = form.label :name
-    = form.text_field :name, required: true, class: "form-control w-50"
-    .valid-feedback Valid
-    .invalid-feedback Invalid
-  .form-group
-    = form.label :body
-    = form.text_area :body, required: true, rows: 7, class: "form-control w-50"
-    .valid-feedback Valid
-    .invalid-feedback Invalid
-  %h2 Tags
-  = render :partial => "tags/form", |
-    :locals => {:form => form}      |
-  .actions
-    = form.submit class: "btn btn-success"
+= form_with model: article, local: false, class: "was-validated" do |form|
+  .modal-body
+    - if article.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(article.errors.count, "error")
+          prohibited this article from being saved:
+        %ul
+          - article.errors.each do |error|
+            %li= error.full_message
+    .form-group
+      = form.label :name
+      = form.text_field :name, required: true, class: "form-control"
+      .valid-feedback Valid
+      .invalid-feedback Invalid
+    .form-group
+      = form.label :body
+      = form.text_area :body, required: true, rows: 7, class: "form-control"
+      .valid-feedback Valid
+      .invalid-feedback Invalid
+    %h2 Tags
+    = render :partial => "tags/form", |
+      :locals => {:form => form}      |
+  .modal-footer
+    %button.btn.btn-secondary.close-modal{"data-bs-dismiss" => "modal", type: "button"} Close
+    .actions
+      = form.submit class: "btn btn-success"
