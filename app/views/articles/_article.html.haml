@@ -2,7 +2,7 @@
   .card
     .card-body
       %h4.card-title
-        = link_to article.name, article
+        = link_to article.name, article, data: { bs_toggle: 'modal', bs_target: '#showArticleModal', remote: true }
       %h6.card-title
         = User.find(article.user_id).email
       %p.card-text
