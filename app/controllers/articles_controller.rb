@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = policy_scope(Article).reverse
+    @articles = policy_scope(Article).order(updated_at: :desc)
   end
 
   # GET /articles/1 or /articles/1.json
@@ -51,9 +51,11 @@ class ArticlesController < ApplicationController
       if @article.update(article_params)
         format.html { redirect_to @article, notice: "Article was successfully updated." }
         format.json { render :show, status: :ok, location: @article }
+        format.js
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @article.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
