@@ -11,4 +11,4 @@
         = article.tags.map { |t| t.name }.join(", ")
       .btn-group
         = link_to 'Edit', edit_article_path(article), class: "btn btn-primary", data: { bs_toggle: 'modal', bs_target: '#editArticleModal', remote: true } if policy(article).update?
-        = button_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" if policy(article).destroy?
+        = link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger" if policy(article).destroy?
