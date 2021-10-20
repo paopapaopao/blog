@@ -3,7 +3,7 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     password { FFaker::Internet.password }
 
-    confirmed_at { Time.now.utc }
+    confirmed_at { DateTime.now }
     # or
     # after(:build) { |u| u.skip_confirmation_notification! }
     # after(:create) { |u| u.confirm }
