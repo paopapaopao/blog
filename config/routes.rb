@@ -12,9 +12,4 @@ Rails.application.routes.draw do
       resources :tags, only: [:create]
     end
   end
-
-  # allow only logged in users with attribute admin set to true to access the admin path
-  authenticate :user, lambda { |u| u.admin == true } do
-    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  end
 end
