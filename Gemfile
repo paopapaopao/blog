@@ -34,7 +34,6 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_bot_rails'
-  gem 'ffaker'
   gem 'dotenv-rails'
 end
 
@@ -64,5 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'pundit'
+gem 'faker'
+
 gem 'rails_admin', '~> 2.0'
 gem "haml-rails", "~> 2.0"
