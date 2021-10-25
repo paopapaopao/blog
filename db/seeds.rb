@@ -29,12 +29,12 @@ drogon = User.create(
 
 4.times do
   FactoryBot.create(:article, user_id: nightking.id)
-  FactoryBot.create(:comment, user_id: nightking.id, article_id: Article.last.id)
-  FactoryBot.create(:comment, user_id: drogon.id, article_id: Article.last.id)
+  FactoryBot.create(:comment, commenter: nightking.email, user_id: nightking.id, article_id: Article.last.id)
+  FactoryBot.create(:comment, commenter: drogon.email, user_id: drogon.id, article_id: Article.last.id)
 
   FactoryBot.create(:article, user_id: drogon.id)
-  FactoryBot.create(:comment, user_id: nightking.id, article_id: Article.last.id)
-  FactoryBot.create(:comment, user_id: drogon.id, article_id: Article.last.id)
+  FactoryBot.create(:comment, commenter: nightking.email, user_id: nightking.id, article_id: Article.last.id)
+  FactoryBot.create(:comment, commenter: drogon.email, user_id: drogon.id, article_id: Article.last.id)
 end
 # or
 # FactoryBot.create_list(:article, 4)
