@@ -12,3 +12,5 @@
       .btn-group
         = link_to 'Edit', edit_article_path(article), class: "btn btn-primary", data: { bs_toggle: 'modal', bs_target: '#editArticleModal', remote: true } if policy(article).update?
         = link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger" if policy(article).destroy?
+      - article.comments.each do |comment|
+        = render 'comments/comment', comment: comment
