@@ -1,13 +1,11 @@
-.mt-2
-  - @article.comments.each do |comment|
-    .d-flex.flex-row.p-3
-      %img.rounded-circle.mr-3{height: "40", src: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png", width: "45"}/
-      .w-100
-        .d-flex.justify-content-between.align-items-center
-          .d-flex.flex-row.align-items-center
-            %span.mr-2
-              = User.find(@article.user_id).email
-        %p.text-justify.comment-text.mb-0
-          = comment.body
-
-      = button_to 'Destroy', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" if policy(@article).update?
+%div{id: "comment-#{comment.id}", class: "d-sm-flex flex-sm-column p-sm-1 mt-2"}
+  .d-flex.flex-row.p-3
+    %img.rounded-circle.mr-3{height: "40", src: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png", width: "45"}/
+    .w-100
+      .d-flex.justify-content-between.align-items-center
+        .d-flex.flex-row.align-items-center
+          %strong.mr-2
+            = User.find(comment.user_id).email
+      %p.text-justify.comment-text.mb-0
+        = comment.body
+  = link_to 'Destroy', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger" if policy(comment).destroy?
