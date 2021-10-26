@@ -330,6 +330,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4)
   rails-controller-testing
+  ransack
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver
