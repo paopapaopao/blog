@@ -65,5 +65,5 @@ gem 'devise'
 gem 'pundit'
 gem 'activeadmin'
 gem 'ransack'
-
-gem "haml-rails", "~> 2.0"
+gem 'simple_form'
+gem 'haml-rails', '~> 2.0'
