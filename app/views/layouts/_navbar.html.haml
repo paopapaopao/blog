@@ -16,8 +16,6 @@
         - if current_user
           %li.nav-item
             = link_to 'Articles', articles_path, class: "nav-link"
-          %li.nav-item
-            = link_to 'New article', new_article_path, class: "nav-link"
           %li.nav-item.dropdown
             = link_to 'Account', "#", role: "button", "data-bs-toggle" => "dropdown", class: "nav-link dropdown-toggle"
             %ul.dropdown-menu
