@@ -64,5 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'faker'
 gem 'devise'
 gem 'pundit'
+gem 'activeadmin'
 
 gem "haml-rails", "~> 2.0"

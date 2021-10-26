@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   devise_for :users
 
   # allow only logged in users to access the articles and comments paths
@@ -11,10 +14,5 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resources :tags, only: [:create]
     end
-  end
-
-  # allow only logged in users with attribute admin set to true to access the admin path
-  authenticate :user, lambda { |u| u.admin == true } do
-    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end
 end
