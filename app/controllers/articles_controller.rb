@@ -7,7 +7,8 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = policy_scope(Article).order(updated_at: :desc)
+    @q = policy_scope(Article).ransack(params[:q])
+    @articles = @q.result(distinct: true).order(updated_at: :desc)
   end
 
   # GET /articles/1 or /articles/1.json
