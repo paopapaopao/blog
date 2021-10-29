@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+* Defaut database values / Seeds:
+  * Admin: email: "admin@example.com", password: "password"
+  * User1: email: "nightking@example.com", password: "password"
+  * User2: email: "drogon@example.com", password: "password"
