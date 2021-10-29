@@ -9,7 +9,7 @@
     -# collapsible navbar
     #collapsible-navbar.collapse.navbar-collapse.justify-content-around
       -# form
-      - if current_user
+      - if current_user && (current_page?(root_path) || current_page?(articles_path))
         = render 'articles/search_form'
       -# links
       %ul.navbar-nav
