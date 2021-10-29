@@ -22,13 +22,55 @@ drogon = User.create(
 )
 
 4.times do
-  FactoryBot.create(:article, user_id: nightking.id)
-  FactoryBot.create(:comment, commenter: nightking.email, user_id: nightking.id, article_id: Article.last.id)
-  FactoryBot.create(:comment, commenter: drogon.email, user_id: drogon.id, article_id: Article.last.id)
+  # FactoryBot.create(:article, user_id: nightking.id)
+  # FactoryBot.create(:comment, commenter: nightking.email, user_id: nightking.id, article_id: Article.last.id)
+  # FactoryBot.create(:comment, commenter: drogon.email, user_id: drogon.id, article_id: Article.last.id)
 
-  FactoryBot.create(:article, user_id: drogon.id)
-  FactoryBot.create(:comment, commenter: nightking.email, user_id: nightking.id, article_id: Article.last.id)
-  FactoryBot.create(:comment, commenter: drogon.email, user_id: drogon.id, article_id: Article.last.id)
+  # FactoryBot.create(:article, user_id: drogon.id)
+  # FactoryBot.create(:comment, commenter: nightking.email, user_id: nightking.id, article_id: Article.last.id)
+  # FactoryBot.create(:comment, commenter: drogon.email, user_id: drogon.id, article_id: Article.last.id)
+
+  Article.create(
+    name: [
+      Faker::Lorem.unique.sentence(word_count: 4, supplemental: true, random_words_to_add: 8),
+      Faker::Lorem.unique.question(word_count: 4, supplemental: false, random_words_to_add: 8)
+    ].sample,
+    body: Faker::Lorem.paragraph(sentence_count: 16, supplemental: true, random_sentences_to_add: 32),
+    user_id: nightking.id
+  )
+  Comment.create(
+    commenter: nightking.email,
+    body: Faker::Lorem.paragraph(sentence_count: 4, supplemental: true, random_sentences_to_add: 8),
+    user_id: nightking.id,
+    article_id: Article.last.id
+  )
+  Comment.create(
+    commenter: drogon.email,
+    body: Faker::Lorem.paragraph(sentence_count: 4, supplemental: true, random_sentences_to_add: 8),
+    user_id: drogon.id,
+    article_id: Article.last.id
+  )
+
+  Article.create(
+    name: [
+      Faker::Lorem.unique.sentence(word_count: 4, supplemental: true, random_words_to_add: 8),
+      Faker::Lorem.unique.question(word_count: 4, supplemental: false, random_words_to_add: 8)
+    ].sample,
+    body: Faker::Lorem.paragraph(sentence_count: 16, supplemental: true, random_sentences_to_add: 32),
+    user_id: drogon.id
+  )
+  Comment.create(
+    commenter: nightking.email,
+    body: Faker::Lorem.paragraph(sentence_count: 4, supplemental: true, random_sentences_to_add: 8),
+    user_id: nightking.id,
+    article_id: Article.last.id
+  )
+  Comment.create(
+    commenter: drogon.email,
+    body: Faker::Lorem.paragraph(sentence_count: 4, supplemental: true, random_sentences_to_add: 8),
+    user_id: drogon.id,
+    article_id: Article.last.id
+  )
 end
 # or
 # FactoryBot.create_list(:article, 4)
