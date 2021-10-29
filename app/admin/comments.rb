@@ -5,7 +5,7 @@ ActiveAdmin.register Comment, as: 'ArticleComment' do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :commenter, :body, :article_id, :user_id
+  permit_params :commenter, :body, :article_id, :user_id
   #
   # or
   #
