@@ -7,8 +7,16 @@ class User < ApplicationRecord
 
   has_many :articles
 
-  after_update :user_approved
+  # test callbacks
+  after_create :set_before_approved
   after_create :admin_new_user_approval
+  after_update :user_approved
+
+  @approved_before
+
+  def username
+    email.split("@")[0]
+  end
 
   def active_for_authentication?
     super && approved?
@@ -18,13 +26,23 @@ class User < ApplicationRecord
     approved? ? super : :not_approved
   end
 
-  def user_approved
-    if confirmed_at && approved?
-      UserMailer.user_approved.deliver_later
-    end
+  def set_before_approved
+    @approved_before = approved?
   end
 
   def admin_new_user_approval
     UserMailer.admin_new_user_approval(id).deliver_later
   end
+
+  def user_approved
+    if confirmed_at && approved? && !@approved_before
+      # @approved_before = true
+      set_before_approved
+      UserMailer.user_approved.deliver_later
+    end
+  end
 end
+
+# User.create(email: 'emanpao@yahoo.com', password: :password)
+# u = User.last
+# u.confirmed_at = Time.now.utc
