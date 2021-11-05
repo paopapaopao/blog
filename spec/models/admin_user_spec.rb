@@ -72,11 +72,6 @@ RSpec.describe AdminUser, type: :model do
   end
 
   context 'When all the attributes are valid' do
-    it do
-      expect(subject).to be_valid
-      expect(subject.errors).not_to be_present
-      expect(subject.errors.to_hash.keys).to eq []
-      expect(subject.errors.to_hash.values).to eq []
-    end
+    it_behaves_like 'all attributes are valid'
   end
 end
