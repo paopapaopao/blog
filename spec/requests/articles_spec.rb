@@ -33,11 +33,8 @@ RSpec.describe "Articles", type: :request do
 
   describe "GET /index" do
     context 'When the user is not signed in' do
-      it do
-        get articles_path
-        expect(response).not_to be_successful
-        expect(response).to have_http_status :found
-        expect(response).to redirect_to new_user_session_path
+      it_behaves_like "unauthenticated user" do
+        before { get articles_path }
       end
     end
 
@@ -57,28 +54,22 @@ RSpec.describe "Articles", type: :request do
       context 'When the article does not exist' do
         it do
           expect { get article_path(0) }.not_to raise_error
-          get article_path(0)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { get article_path(0) }
         end
       end
 
       context 'When the article exists but does not belong to the user' do
-        it do
-          get article_path(@signed_out_user_article)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect(response).to redirect_to new_user_session_path
+        it_behaves_like "unauthenticated user" do
+          before { get article_path(@signed_out_user_article) }
         end
       end
 
       context 'When the article exists and belongs to the user' do
-        it do
-          get article_path(@signed_in_user_article)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect(response).to redirect_to new_user_session_path
+        it_behaves_like "unauthenticated user" do
+          before { get article_path(@signed_in_user_article) }
         end
       end
     end
@@ -119,11 +110,8 @@ RSpec.describe "Articles", type: :request do
 
   describe "GET /new" do
     context 'When the user is not signed in' do
-      it do
-        get new_article_path
-        expect(response).not_to be_successful
-        expect(response).to have_http_status :found
-        expect(response).to redirect_to new_user_session_path
+      it_behaves_like "unauthenticated user" do
+        before { get new_article_path }
       end
     end
 
@@ -143,28 +131,22 @@ RSpec.describe "Articles", type: :request do
       context 'When the article does not exist' do
         it do
           expect { get edit_article_path(0) }.not_to raise_error
-          get edit_article_path(0)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { get edit_article_path(0) }
         end
       end
 
       context 'When the article exists but does not belong to the user' do
-        it do
-          get edit_article_path(@signed_out_user_article)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect(response).to redirect_to new_user_session_path
+        it_behaves_like "unauthenticated user" do
+          before { get edit_article_path(@signed_out_user_article) }
         end
       end
 
       context 'When the article exists and belongs to the user' do
-        it do
-          get edit_article_path(@signed_in_user_article)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect(response).to redirect_to new_user_session_path
+        it_behaves_like "unauthenticated user" do
+          before { get edit_article_path(@signed_in_user_article) }
         end
       end
     end
@@ -211,10 +193,11 @@ RSpec.describe "Articles", type: :request do
           expect(Article.last.name).not_to eq invalid_attributes[:name]
           expect(Article.last.body).not_to eq invalid_attributes[:body]
           expect(Article.last.user_id).not_to eq @signed_in_user.id
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
           expect { response }.to change(Article, :count).by 0
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { post articles_path, params: { article: invalid_attributes } }
         end
       end
 
@@ -224,10 +207,11 @@ RSpec.describe "Articles", type: :request do
           expect(Article.last.name).not_to eq valid_attributes[:name]
           expect(Article.last.body).not_to eq valid_attributes[:body]
           expect(Article.last.user_id).not_to eq @signed_in_user.id
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
           expect { response }.to change(Article, :count).by 0
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { post articles_path, params: { article: valid_attributes } }
         end
       end
     end
@@ -276,9 +260,10 @@ RSpec.describe "Articles", type: :request do
             patch article_path(0), params: { article: invalid_attributes }
             expect(@signed_out_user_article.name).not_to eq invalid_attributes[:name]
             expect(@signed_out_user_article.body).not_to eq invalid_attributes[:body]
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            expect(response).to redirect_to new_user_session_path
+          end
+
+          it_behaves_like "unauthenticated user" do
+            before { patch article_path(0), params: { article: invalid_attributes } }
           end
         end
 
@@ -287,9 +272,10 @@ RSpec.describe "Articles", type: :request do
             patch article_path(0), params: { article: new_valid_attributes }
             expect(@signed_out_user_article.name).not_to eq new_valid_attributes[:name]
             expect(@signed_out_user_article.body).not_to eq new_valid_attributes[:body]
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            expect(response).to redirect_to new_user_session_path
+          end
+
+          it_behaves_like "unauthenticated user" do
+            before { patch article_path(0), params: { article: new_valid_attributes } }
           end
         end
       end
@@ -301,9 +287,10 @@ RSpec.describe "Articles", type: :request do
             @signed_out_user_article.reload
             expect(@signed_out_user_article.name).not_to eq invalid_attributes[:name]
             expect(@signed_out_user_article.body).not_to eq invalid_attributes[:body]
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            expect(response).to redirect_to new_user_session_path
+          end
+
+          it_behaves_like "unauthenticated user" do
+            before { patch article_path(@signed_out_user_article), params: { article: invalid_attributes } }
           end
         end
 
@@ -313,9 +300,10 @@ RSpec.describe "Articles", type: :request do
             @signed_out_user_article.reload
             expect(@signed_out_user_article.name).not_to eq new_valid_attributes[:name]
             expect(@signed_out_user_article.body).not_to eq new_valid_attributes[:body]
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            expect(response).to redirect_to new_user_session_path
+          end
+
+          it_behaves_like "unauthenticated user" do
+            before { patch article_path(@signed_out_user_article), params: { article: new_valid_attributes } }
           end
         end
       end
@@ -327,9 +315,10 @@ RSpec.describe "Articles", type: :request do
             @signed_in_user_article.reload
             expect(@signed_in_user_article.name).not_to eq invalid_attributes[:name]
             expect(@signed_in_user_article.body).not_to eq invalid_attributes[:body]
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            expect(response).to redirect_to new_user_session_path
+          end
+
+          it_behaves_like "unauthenticated user" do
+            before { patch article_path(@signed_in_user_article), params: { article: invalid_attributes } }
           end
         end
 
@@ -339,9 +328,10 @@ RSpec.describe "Articles", type: :request do
             @signed_in_user_article.reload
             expect(@signed_in_user_article.name).not_to eq new_valid_attributes[:name]
             expect(@signed_in_user_article.body).not_to eq new_valid_attributes[:body]
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            expect(response).to redirect_to new_user_session_path
+          end
+
+          it_behaves_like "unauthenticated user" do
+            before { patch article_path(@signed_in_user_article), params: { article: new_valid_attributes } }
           end
         end
       end
@@ -434,30 +424,33 @@ RSpec.describe "Articles", type: :request do
         it do
           expect { delete article_path(0) }.not_to raise_error
           delete article_path(0)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
           expect { response }.to change(Article, :count).by 0
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { delete article_path(0) }
         end
       end
 
       context 'When the article exists but does not belong to the user' do
         it do
           delete article_path(@signed_out_user_article)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
           expect { response }.to change(Article, :count).by 0
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { delete article_path(@signed_out_user_article) }
         end
       end
 
       context 'When the article exists and belongs to the user' do
         it do
           delete article_path(@signed_in_user_article)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
           expect { response }.to change(Article, :count).by 0
-          expect(response).to redirect_to new_user_session_path
+        end
+
+        it_behaves_like "unauthenticated user" do
+          before { delete article_path(@signed_in_user_article) }
         end
       end
     end
@@ -504,3 +497,5 @@ RSpec.describe "Articles", type: :request do
     end
   end
 end
+
+# 510
