@@ -4,58 +4,38 @@ RSpec.describe Article, type: :model do
   subject { build :article }
 
   context 'When the name attribute is invalid' do
-    it do
-      subject.name = nil
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :name
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :name, "can't be blank"  do
+      before { subject.name = nil }
+    end
 
-      subject.name = ''
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :name
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :name, "can't be blank" do
+      before { subject.name = '' }
+    end
 
-      subject.name = ' '
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :name
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :name, "can't be blank" do
+      before { subject.name = ' ' }
+    end
 
-      subject.name = (create :article).name
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :name
-      expect(subject.errors.to_hash.values[0]).to include "has already been taken"
+    it_behaves_like 'an attribute is invalid', :name, 'has already been taken' do
+      before { subject.name = (create :article).name }
     end
   end
 
   context 'When the body attribute is invalid' do
-    it do
-      subject.body = nil
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :body
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :body, "can't be blank"  do
+      before { subject.body = nil }
+    end
 
-      subject.body = ''
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :body
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :body, "can't be blank" do
+      before { subject.body = '' }
+    end
 
-      subject.body = ' '
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :body
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :body, "can't be blank" do
+      before { subject.body = ' ' }
+    end
 
-      subject.body = 'a' * 4
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :body
-      expect(subject.errors.to_hash.values[0]).to include "is too short (minimum is 5 characters)"
+    it_behaves_like 'an attribute is invalid', :body, "is too short (minimum is 5 characters)" do
+      before { subject.body = 'a' * 4 }
     end
   end
 

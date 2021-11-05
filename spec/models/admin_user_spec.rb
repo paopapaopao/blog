@@ -4,70 +4,46 @@ RSpec.describe AdminUser, type: :model do
   subject { build :admin_user }
 
   context 'When the email attribute is invalid' do
-    it do
-      subject.email = nil
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :email
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :email, "can't be blank"  do
+      before { subject.email = nil }
+    end
 
-      subject.email = ''
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :email
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :email, "can't be blank" do
+      before { subject.email = '' }
+    end
 
-      subject.email = ' '
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :email
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :email, "can't be blank" do
+      before { subject.email = ' ' }
+    end
 
-      subject.email = 'a'
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :email
-      expect(subject.errors.to_hash.values[0]).to include "is invalid"
+    it_behaves_like 'an attribute is invalid', :email, 'is invalid' do
+      before { subject.email = 'a' }
+    end
 
-      subject.email = (create :admin_user).email
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :email
-      expect(subject.errors.to_hash.values[0]).to include "has already been taken"
+    it_behaves_like 'an attribute is invalid', :email, 'has already been taken' do
+      before { subject.email = (create :admin_user).email }
     end
   end
 
   context 'When the password attribute is invalid' do
-    it do
-      subject.password = nil
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :password
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :password, "can't be blank" do
+      before { subject.password = nil }
+    end
 
-      subject.password = ''
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :password
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :password, "can't be blank" do
+      before { subject.password = '' }
+    end
 
-      subject.password = ' '
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :password
-      expect(subject.errors.to_hash.values[0]).to include "can't be blank"
+    it_behaves_like 'an attribute is invalid', :password, "can't be blank" do
+      before { subject.password = ' ' }
+    end
 
-      subject.password = 'a' * 5
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :password
-      expect(subject.errors.to_hash.values[0]).to include "is too short (minimum is #{User.password_length.min} characters)"
+    it_behaves_like 'an attribute is invalid', :password, "is too short (minimum is #{AdminUser.password_length.min} characters)" do
+      before { subject.password = 'a' * 5 }
+    end
 
-      subject.password = 'a' * 129
-      expect(subject).not_to be_valid
-      expect(subject.errors).to be_present
-      expect(subject.errors.to_hash.keys).to include :password
-      expect(subject.errors.to_hash.values[0]).to include "is too long (maximum is #{User.password_length.max} characters)"
+    it_behaves_like 'an attribute is invalid', :password, "is too long (maximum is #{AdminUser.password_length.max} characters)" do
+      before { subject.password = 'a' * 129 }
     end
   end
 
