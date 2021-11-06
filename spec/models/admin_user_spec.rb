@@ -38,11 +38,11 @@ RSpec.describe AdminUser, type: :model do
       before { subject.password = ' ' }
     end
 
-    it_behaves_like 'an attribute is invalid', :password, "is too short (minimum is #{AdminUser.password_length.min} characters)" do
+    it_behaves_like 'an attribute is invalid', :password, "is too short (minimum is #{described_class.password_length.min} characters)" do
       before { subject.password = 'a' * 5 }
     end
 
-    it_behaves_like 'an attribute is invalid', :password, "is too long (maximum is #{AdminUser.password_length.max} characters)" do
+    it_behaves_like 'an attribute is invalid', :password, "is too long (maximum is #{described_class.password_length.max} characters)" do
       before { subject.password = 'a' * 129 }
     end
   end
