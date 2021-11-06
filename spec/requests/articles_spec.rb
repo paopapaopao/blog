@@ -74,13 +74,11 @@ RSpec.describe 'Articles', type: :request do
       before(:each) { sign_in @signed_in_user }
 
       context 'When the article does not exist' do
-        it do
-          expect { get article_path(0) }.to raise_exception ActiveRecord::RecordNotFound
-          get article_path(0)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          # ? why redirect to the sign in page?
-          # expect(response).to redirect_to new_user_session_path
+        it_behaves_like 'article does not exist' do
+          before do
+            expect { get article_path(0) }.to raise_exception ActiveRecord::RecordNotFound
+            get article_path(0)
+          end
         end
       end
 
@@ -147,13 +145,11 @@ RSpec.describe 'Articles', type: :request do
       before(:each) { sign_in @signed_in_user }
 
       context 'When the article does not exist' do
-        it do
-          expect { get edit_article_path(0) }.to raise_exception ActiveRecord::RecordNotFound
-          get edit_article_path(0)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          # ? why redirect to the sign in page?
-          # expect(response).to redirect_to new_user_session_path
+        it_behaves_like 'article does not exist' do
+          before do
+            expect { get edit_article_path(0) }.to raise_exception ActiveRecord::RecordNotFound
+            get edit_article_path(0)
+          end
         end
       end
 
@@ -275,24 +271,20 @@ RSpec.describe 'Articles', type: :request do
 
       context 'When the article does not exist' do
         context 'With invalid arguments' do
-          it do
-            expect { patch article_path(0), params: { article: invalid_attributes } }.to raise_exception ActiveRecord::RecordNotFound
-            patch article_path(0), params: { article: invalid_attributes }
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            # ? why redirect to the sign in page?
-            # expect(response).to redirect_to new_user_session_path
+          it_behaves_like 'article does not exist' do
+            before do
+              expect { patch article_path(0), params: { article: invalid_attributes } }.to raise_exception ActiveRecord::RecordNotFound
+              patch article_path(0), params: { article: invalid_attributes }
+            end
           end
         end
 
         context 'With valid arguments' do
-          it do
-            expect { patch article_path(0), params: { article: new_valid_attributes } }.to raise_exception ActiveRecord::RecordNotFound
-            patch article_path(0), params: { article: new_valid_attributes }
-            expect(response).not_to be_successful
-            expect(response).to have_http_status :found
-            # ? why redirect to the sign in page?
-            # expect(response).to redirect_to new_user_session_path
+          it_behaves_like 'article does not exist' do
+            before do
+              expect { patch article_path(0), params: { article: new_valid_attributes } }.to raise_exception ActiveRecord::RecordNotFound
+              patch article_path(0), params: { article: new_valid_attributes }
+            end
           end
         end
       end
@@ -378,14 +370,12 @@ RSpec.describe 'Articles', type: :request do
       before(:each) { sign_in @signed_in_user }
 
       context 'When the article does not exist' do
-        it do
-          expect { delete article_path(0) }.to raise_exception ActiveRecord::RecordNotFound
-          delete article_path(0)
-          expect(response).not_to be_successful
-          expect(response).to have_http_status :found
-          expect { response }.to change(Article, :count).by 0
-          # ? why redirect to the sign in page?
-          # expect(response).to redirect_to new_user_session_path
+        it_behaves_like 'article does not exist' do
+          before do
+            expect { delete article_path(0) }.to raise_exception ActiveRecord::RecordNotFound
+            delete article_path(0)
+            expect { response }.to change(Article, :count).by 0
+          end
         end
       end
 
