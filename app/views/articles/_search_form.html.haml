@@ -1,4 +1,7 @@
 = search_form_for @q, class: "d-flex" do |f|
   .input-group
     = f.search_field :name_or_body_cont, placeholder: "Search", class: "form-control"
-    = f.submit "Search", class: "btn btn-success"
+    = f.button type: :submit, class: "btn btn-success" do
+      %i.fas.fa-search
+      %span Search
+
