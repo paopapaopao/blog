@@ -1,10 +1,11 @@
 .navbar.bg-dark.navbar-dark.fixed-top.navbar-expand-sm
   .container-fluid
     -# brand/logo
-    %a.navbar-brand{href: root_path}
-      %img.rounded-pill{src: "https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png", alt: "Brand/Logo", style: "width:40px;"}/
+    = link_to root_path, class: "navbar-brand" do
+      %i.fas.fa-blog
+      = image_tag 'https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png', alt: 'Brand/Logo', width: '48px', height: '48px', class: 'rounded-pill'
     -# collapsible navbar toggler
-    %button.navbar-toggler{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapsible-navbar"}
+    = link_to "#", type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapsible-navbar", class: "navbar-toggler" do
       %span.navbar-toggler-icon
     -# collapsible navbar
     #collapsible-navbar.collapse.navbar-collapse.justify-content-around
@@ -15,16 +16,28 @@
       %ul.navbar-nav
         - if current_user
           %li.nav-item
-            = link_to 'Articles', articles_path, class: "nav-link"
+            = link_to articles_path, class: "nav-link" do
+              %i.fas.fa-home
+              %span Home
           %li.nav-item.dropdown
-            = link_to 'Account', "#", role: "button", "data-bs-toggle" => "dropdown", class: "nav-link dropdown-toggle"
+            = link_to "#", role: "button", "data-bs-toggle" => "dropdown", class: "nav-link dropdown-toggle" do
+              %i.fas.fa-user-alt
+              %span Account
             %ul.dropdown-menu
               %li
-                = link_to current_user.email, "#", class: "dropdown-item"
+                = link_to "#", class: "dropdown-item" do
+                  %i.fas.fa-user-alt
+                  %span= current_user.email
               %li
-                = link_to 'Sign out', destroy_user_session_path, "data-method" => "delete", rel: "nofollow", data: { confirm: 'Are you sure you want to sign out?' }, class: "dropdown-item"
+                = button_to destroy_user_session_path, method: :delete, rel: "nofollow", data: { confirm: 'Are you sure you want to sign out?' }, class: "dropdown-item" do
+                  %i.fas.fa-sign-out-alt
+                  %span Sign out
         - else
           %li.nav-item
-            = link_to 'Sign in', new_user_session_path, class: "nav-link"
+            = link_to new_user_session_path, class: "nav-link" do
+              %i.fas.fa-sign-in-alt
+              %span Sign in
           %li.nav-item
-            = link_to 'Sign up', new_user_registration_path, class: "nav-link"
+            = link_to new_user_registration_path, class: "nav-link" do
+              %i.fas.fa-user-plus
+              %span Sign up
