@@ -8,11 +8,16 @@ Rails.application.routes.draw do
 
   # allow only logged in users to access the articles and comments paths
   authenticate :user do
-    root to: 'articles#index'
+    root to: "articles#index"
 
     resources :articles do
       resources :comments, only: [:create, :destroy]
       resources :tags, only: [:create]
+
+      member do
+        patch "upvote", to: "articles#upvote"
+        patch "downvote", to: "articles#downvote"
+      end
     end
   end
 end
