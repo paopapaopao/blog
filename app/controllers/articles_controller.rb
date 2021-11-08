@@ -5,6 +5,8 @@ class ArticlesController < ApplicationController
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
+  before_action :authenticate_user!, only: [:like]
+
   # GET /articles or /articles.json
   def index
     @q = policy_scope(Article).ransack(params[:q])
@@ -70,6 +72,30 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
       format.js
     end
+  end
+
+  def upvote
+    @article = Article.find(params[:id])
+
+    if current_user.voted_up_on? @article
+      @article.unvote_by current_user
+    else
+      @article.upvote_by current_user
+    end
+
+    render "vote.js.haml"
+  end
+
+  def downvote
+    @article = Article.find(params[:id])
+
+    if current_user.voted_down_on? @article
+      @article.unvote_by current_user
+    else
+      @article.downvote_by current_user
+    end
+
+    render "vote.js.haml"
   end
 
   private
