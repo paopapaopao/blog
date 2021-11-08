@@ -10,4 +10,6 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :tags, :allow_destroy => :true,
     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+
+  acts_as_votable
 end
