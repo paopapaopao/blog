@@ -1,4 +1,6 @@
-= link_to 'New Article', new_article_path, class: "btn btn-success", data: { bs_toggle: 'modal', bs_target: '#newArticleModal', remote: true }
+- content_for :title, 'Blog | Home'
+
+= link_to 'New Article', new_article_path, data: { bs_toggle: 'modal', bs_target: '#newArticleModal', remote: true }, class: "btn btn-success"
 
 -# new article modal
 #newArticleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newArticleModalLabel", tabindex: "-1"}
@@ -9,15 +11,6 @@
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
       #newArticleForm
 
--# edit article modal
-#editArticleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "editArticleModalLabel", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h5#editArticleModalLabel.modal-title Edit Article
-        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
-      #editArticleForm
-
 -# show article modal
 #showArticleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "showArticleModalLabel", tabindex: "-1"}
   .modal-dialog
@@ -27,7 +20,15 @@
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
       #showArticle
 
+-# edit article modal
+#editArticleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "editArticleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#editArticleModalLabel.modal-title Edit Article
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      #editArticleForm
+
 #articles
-  %h1 Articles
   - @articles.each do |article|
-    = render 'article', article: article
+    = render article

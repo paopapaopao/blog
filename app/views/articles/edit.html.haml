@@ -1,3 +1,4 @@
-%h1 Edit Article
+- content_for :title, 'Blog | Edit Article'
+
 = render 'form', article: @article
 = button_to 'Show', @article, method: :get, class: "btn btn-primary"

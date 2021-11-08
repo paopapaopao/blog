@@ -1,19 +1,6 @@
-%p#notice= notice
+- content_for :title, 'Blog | Show Article'
 
-.d-sm-flex.flex-sm-column.p-sm-1
-  .card
-    .card-body
-      %h4.card-title
-        = link_to @article.name, @article
-      %h6.card-title
-        = User.find(@article.user_id).email
-      %p.card-text
-        = @article.body
-      .btn-group
-        = button_to 'Edit', edit_article_path(@article), method: :get, class: "btn btn-primary" if policy(@article).update?
-        = button_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" if policy(@article).destroy?
-
-      = render @article.comments
+= render @article
 
 %h2 Add Comment
 = render "comments/form"
