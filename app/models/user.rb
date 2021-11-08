@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :articles
 
+  acts_as_voter
+
   # test callbacks
   after_create :set_before_approved
   after_create :admin_new_user_approval
