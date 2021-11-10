@@ -1,0 +1,2 @@
+$("#downvote-#{@article.id}").html("#{escape_javascript render('articles/downvote_link', article: @article)}");
+$("#upvote-#{@article.id}").html("#{escape_javascript render('articles/upvote_link', article: @article)}");
