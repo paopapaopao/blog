@@ -1,16 +1,46 @@
 %div{id: "article-#{article.id}", class: "d-sm-flex flex-sm-column p-sm-1"}
   .card
     .card-body
-      %h4.card-title
-        = link_to article.name, article, data: { bs_toggle: 'modal', bs_target: '#showArticleModal', remote: true }
+      .d-flex.justify-content-between
+        %h4.card-title
+          = link_to article.name, article, data: { bs_toggle: 'modal', bs_target: '#showArticleModal', remote: true }
+        .dropdown
+          %a#dropdownMenuLink{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
+            %i.fas.fa-ellipsis-v{style: "margin-right: auto"}
+          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
+            - if policy(article).update?
+              %li
+                = link_to edit_article_path(article), data: { bs_toggle: 'modal', bs_target: '#editArticleModal', remote: true }, class: "dropdown-item" do
+                  %i.fas.fa-edit
+                  Edit
+            - if policy(article).destroy?
+              %li
+                = link_to article, method: :delete, data: { confirm: 'Are you sure you want to delete this article?', remote: true }, class: "dropdown-item" do
+                  %i.fas.fa-trash-alt
+                  Destroy
       %h6.card-title
-        = User.find(article.user_id).email
+        = article.user.email
       %p.card-text
         = article.body
       %p.card-text
         = article.tags.map { |t| t.name }.join(", ")
+      = render 'articles/upvote_link', article: article
+      = render 'articles/downvote_link', article: article
       .btn-group
-        = link_to 'Edit', edit_article_path(article), class: "btn btn-primary", data: { bs_toggle: 'modal', bs_target: '#editArticleModal', remote: true } if policy(article).update?
-        = link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger" if policy(article).destroy?
+        = link_to 'Read more', article, class: "btn btn-primary"
       - article.comments.each do |comment|
         = render 'comments/comment', comment: comment
+
+-# %div{id: "article-#{article.id}", class: "d-sm-flex flex-sm-column p-sm-1"}
+-#   .card.mb-4
+-#     %a{href: "#!"}
+-#       %img.card-img-top{alt: "...", src: "https://dummyimage.com/850x350/dee2e6/6c757d.jpg"}/
+-#     .card-body
+-#       .small.text-muted
+-#         = format_date_time(article)
+-#       %h2.card-title
+-#         = article.name
+-#       %p.card-text
+-#         = truncate_body(article)
+-#       %a.btn.btn-primary{href: "#!"} Read more →
+
