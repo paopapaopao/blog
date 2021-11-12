@@ -1,8 +1,8 @@
-= content_tag "div", id: "downvote-#{article.id}" do
+= content_tag "div", id: "downvote-#{article.id}", class: "mx-2" do
   = link_to downvote_article_path(article), method: :patch, remote: true, data: { disable_with: "voting..." } do
     - if current_user.voted_down_on? article
-      %i.far.fa-thumbs-down{:style => "color: red;"}
+      %i.fas.fa-thumbs-down{:style => "color: red;"}
       unvote
     - else
-      %i.far.fa-thumbs-down
+      %i.fas.fa-thumbs-down
       downvote
