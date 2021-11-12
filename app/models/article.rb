@@ -1,6 +1,8 @@
 class Article < ApplicationRecord
   attr_accessor :tags_attributes
 
+  has_rich_text :body
+
   validates :name, presence: true, uniqueness: true
   validates :body, presence: true, length: { minimum: 5 }
 

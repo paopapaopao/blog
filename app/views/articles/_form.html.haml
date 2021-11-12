@@ -16,12 +16,11 @@
       .invalid-feedback Invalid
     .form-group
       = form.label :body
-      = form.text_area :body, required: true, rows: 7, class: "form-control"
+      = form.rich_text_area :body, required: true, rows: 7, class: "form-control"
       .valid-feedback Valid
       .invalid-feedback Invalid
     %h2 Tags
-    = render :partial => "tags/form", |
-      :locals => {:form => form}      |
+    = render :partial => "tags/form", :locals => {form: form}
   .modal-footer
     %button.btn.btn-secondary.close-modal{"data-bs-dismiss" => "modal", type: "button"} Close
     .actions
