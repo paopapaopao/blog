@@ -1,43 +1,40 @@
 .navbar.bg-dark.navbar-dark.fixed-top.navbar-expand-sm
-  .container-fluid
+  .container
     -# brand/logo
     = link_to root_path, class: "navbar-brand" do
-      %i.fas.fa-blog
+      -# %i.fas.fa-blog
       = image_tag 'https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png', alt: 'Brand/Logo', width: '48px', height: '48px', class: 'rounded-pill'
     -# collapsible navbar toggler
     = link_to "#", type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapsible-navbar", class: "navbar-toggler" do
-      %span.navbar-toggler-icon
+      %i.navbar-toggler-icon
     -# collapsible navbar
-    #collapsible-navbar.collapse.navbar-collapse.justify-content-around
-      -# form
-      - if current_user && (current_page?(root_path) || current_page?(articles_path))
-        = render 'articles/search_form'
+    #collapsible-navbar.collapse.navbar-collapse.justify-content-end
       -# links
       %ul.navbar-nav
         - if current_user
           %li.nav-item
             = link_to articles_path, class: "nav-link" do
               %i.fas.fa-home
-              %span Home
+              Home
           %li.nav-item.dropdown
             = link_to "#", role: "button", "data-bs-toggle" => "dropdown", class: "nav-link dropdown-toggle" do
               %i.fas.fa-user-alt
-              %span Account
+              Account
             %ul.dropdown-menu
               %li
                 = link_to "#", class: "dropdown-item" do
                   %i.fas.fa-user-alt
-                  %span= current_user.email
+                  = current_user.email
               %li
-                = button_to destroy_user_session_path, method: :delete, rel: "nofollow", data: { confirm: 'Are you sure you want to sign out?' }, class: "dropdown-item" do
+                = link_to destroy_user_session_path, method: :delete, rel: "nofollow", data: { confirm: 'Are you sure you want to sign out?' }, class: "dropdown-item" do
                   %i.fas.fa-sign-out-alt
-                  %span Sign out
+                  Sign out
         - else
           %li.nav-item
             = link_to new_user_session_path, class: "nav-link" do
               %i.fas.fa-sign-in-alt
-              %span Sign in
+              Sign in
           %li.nav-item
             = link_to new_user_registration_path, class: "nav-link" do
               %i.fas.fa-user-plus
-              %span Sign up
+              Sign up
