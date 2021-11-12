@@ -1,7 +1,5 @@
 - content_for :title, 'Blog | Home'
 
-= link_to 'New Article', new_article_path, data: { bs_toggle: 'modal', bs_target: '#newArticleModal', remote: true }, class: "btn btn-success"
-
 -# new article modal
 #newArticleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newArticleModalLabel", tabindex: "-1"}
   .modal-dialog.modal-lg
@@ -31,4 +29,4 @@
 
 #articles
   - @articles.each do |article|
-    = render article
+    = render 'article_preview', article: article
