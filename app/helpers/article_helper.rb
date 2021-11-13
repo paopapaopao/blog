@@ -1,4 +1,4 @@
-module ArticlesHelper
+module ArticleHelper
   def format_date_time(article)
     article.created_at.strftime("%A, %d %B %Y at %H:%M")
   end
