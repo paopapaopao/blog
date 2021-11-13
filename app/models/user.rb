@@ -16,10 +16,6 @@ class User < ApplicationRecord
 
   @approved_before
 
-  def username
-    email.split("@")[0]
-  end
-
   def active_for_authentication?
     super && approved?
   end
@@ -44,7 +40,3 @@ class User < ApplicationRecord
     end
   end
 end
-
-# User.create(email: 'emanpao@yahoo.com', password: :password)
-# u = User.last
-# u.confirmed_at = Time.now.utc
