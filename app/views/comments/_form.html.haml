@@ -1,7 +1,6 @@
-= form_for [@article, @article.comments.build] do |f|
+= form_for [@article, @article.comments.build], html: { class: "mb-4" } do |f|
   .form-group
-    = f.label :body
-    = f.text_area :body, required: true, class: "form-control w-50"
+    = f.text_area :body, required: true, placeholder: "Join the discussion and leave a comment!", class: "form-control"
     .valid-feedback Valid
     .invalid-feedback Invalid
   .actions
