@@ -15,9 +15,12 @@
     = favicon_link_tag asset_path 'https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png'
     -# jQuery
     = javascript_include_tag "https://code.jquery.com/jquery-3.6.0.js", crossorigin: "anonymous", integrity: "sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  %body
-    .d-flex.flex-column.px-5
+  %body.py-5
+    = render 'layouts/navbar'
+    .container-fluid
       .my-5
-      = render 'layouts/navbar'
-      = render 'layouts/alerts'
-      = yield
+      .row
+        .col-8
+          = yield
+        .col-4
+          = render 'layouts/side_widgets'
