@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tag do
-    name { FFaker::DizzleIpsum.word }
+    name { Faker::Lorem.word }
     article
   end
 end
