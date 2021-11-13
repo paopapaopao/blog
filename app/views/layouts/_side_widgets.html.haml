@@ -1,0 +1,32 @@
+-# new article
+.card.mb-4
+  .card-header New Article
+  .card-body
+    = link_to 'New Article', new_article_path, data: { bs_toggle: 'modal', bs_target: '#newArticleModal', remote: true }, class: "btn btn-success"
+-# search widget
+- if current_user && (current_page?(root_path) || current_page?(articles_path))
+  .card.mb-4
+    .card-header Search
+    .card-body
+      = render 'articles/search_form'
+-# tags widget
+.card.mb-4
+  .card-header Tags
+  .card-body
+    .row
+      .col-sm-6
+        %ul.list-unstyled.mb-0
+          %li
+            %a{href: "#"} Lorem
+          %li
+            %a{href: "#"} Ipsum
+          %li
+            %a{href: "#"} Dolor
+      .col-sm-6
+        %ul.list-unstyled.mb-0
+          %li
+            %a{href: "#"} Sit
+          %li
+            %a{href: "#"} Amet
+          %li
+            %a{href: "#"} Consectetur
