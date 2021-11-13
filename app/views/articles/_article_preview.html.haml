@@ -1,7 +1,7 @@
 %div{id: "article-#{article.id}", class: "d-sm-flex flex-sm-column p-sm-1"}
   .card.mb-4
     %a{href: "#!"}
-      %img.card-img-top{alt: "...", src: "https://dummyimage.com/850x350/dee2e6/6c757d.jpg"}/
+      %img.card-img-top{alt: "...", src: Faker::LoremFlickr.image(size: "900x300")}/
     .card-body
       .small.text-muted
         = format_date_time(article)
