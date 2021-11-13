@@ -38,8 +38,19 @@
           %a.badge.bg-secondary.text-decoration-none.link-light{href: "#!"} Web Design
           %a.badge.bg-secondary.text-decoration-none.link-light{href: "#!"} Freebies
         -# article content
-        %section.mb-5
+        %section.mb-3
           = article.body
+      -# socialization section
+      %section.mb-3
+        .d-flex
+          = render 'upvote_link', article: article
+          = article.get_upvotes.size
+          = render 'downvote_link', article: article
+          = article.get_downvotes.size
+          %i.fas.fa-comments.mx-2
+          = article.comments.size
+          %i.fas.fa-share.mx-2
+          0
       -# comments section
       %section.mb-5
         .card.bg-light
