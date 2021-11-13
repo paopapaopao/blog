@@ -1,46 +1,51 @@
-%div{id: "article-#{article.id}", class: "d-sm-flex flex-sm-column p-sm-1"}
-  .card
-    .card-body
-      .d-flex.justify-content-between
-        %h4.card-title
-          = link_to article.name, article, data: { bs_toggle: 'modal', bs_target: '#showArticleModal', remote: true }
-        .dropdown
-          %a#dropdownMenuLink{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
-            %i.fas.fa-ellipsis-v{style: "margin-right: auto"}
-          %ul.dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
-            - if policy(article).update?
-              %li
-                = link_to edit_article_path(article), data: { bs_toggle: 'modal', bs_target: '#editArticleModal', remote: true }, class: "dropdown-item" do
-                  %i.fas.fa-edit
-                  Edit
-            - if policy(article).destroy?
-              %li
-                = link_to article, method: :delete, data: { confirm: 'Are you sure you want to delete this article?', remote: true }, class: "dropdown-item" do
-                  %i.fas.fa-trash-alt
-                  Destroy
-      %h6.card-title
-        = article.user.email
-      %p.card-text
-        = article.body
-      %p.card-text
-        = article.tags.map { |t| t.name }.join(", ")
-      = render 'articles/upvote_link', article: article
-      = render 'articles/downvote_link', article: article
-      .btn-group
-        = link_to 'Read more', article, class: "btn btn-primary"
-      - article.comments.each do |comment|
-        = render 'comments/comment', comment: comment
-
--# %div{id: "article-#{article.id}", class: "d-sm-flex flex-sm-column p-sm-1"}
--#   .card.mb-4
--#     %a{href: "#!"}
--#       %img.card-img-top{alt: "...", src: "https://dummyimage.com/850x350/dee2e6/6c757d.jpg"}/
--#     .card-body
--#       .small.text-muted
--#         = format_date_time(article)
--#       %h2.card-title
--#         = article.name
--#       %p.card-text
--#         = truncate_body(article)
--#       %a.btn.btn-primary{href: "#!"} Read more →
-
+%div{id: "article-#{article.id}", class: "container"}
+  .row
+    .col-lg
+      -# article content
+      %article
+        -# article header
+        %header.mb-4
+          -# article title
+          %h1.fw-bolder.mb-1
+            = article.name
+          -# article meta content
+          .d-flex.justify-content-between
+            .text-muted.fst-italic.mb-2
+              Posted on
+              = format_date_time(article)
+              by
+              = username(article.user)
+            .d-flex
+              %a#dropdownMenuLink{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button", style: "color: inherit;"}
+                %i.fas.fa-ellipsis-v{style: "margin-right: auto"}
+              %ul.dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
+                - if policy(article).show?
+                  %li
+                    = link_to article, class: "dropdown-item" do
+                      %i.fas.fa-eye
+                      Show
+                - if policy(article).edit?
+                  %li
+                    = link_to edit_article_path(article), class: "dropdown-item" do
+                      %i.fas.fa-edit
+                      Edit
+                - if policy(article).destroy?
+                  %li
+                    = link_to article, method: :delete, data: { confirm: 'Are you sure you want to delete this article?' }, class: "dropdown-item" do
+                      %i.fas.fa-trash-alt
+                      Destroy
+          -# article tags
+          %a.badge.bg-secondary.text-decoration-none.link-light{href: "#!"} Web Design
+          %a.badge.bg-secondary.text-decoration-none.link-light{href: "#!"} Freebies
+        -# article content
+        %section.mb-5
+          = article.body
+      -# comments section
+      %section.mb-5
+        .card.bg-light
+          .card-body
+            -# comment form
+            = render 'comments/form'
+            -# comments
+            - article.comments.each do |comment|
+              = render 'comments/comment', comment: comment
