@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include ActionText::Attachable
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -38,5 +40,9 @@ class User < ApplicationRecord
       set_before_approved
       UserMailer.user_approved.deliver_later
     end
+  end
+
+  def to_trix_content_attachment_partial_path
+    to_partial_path
   end
 end
