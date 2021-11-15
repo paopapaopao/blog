@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # aayusin pa
   resources :mentions, only: [:index]
+  resources :users
 end
