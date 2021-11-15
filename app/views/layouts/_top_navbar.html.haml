@@ -1,0 +1,43 @@
+%nav.navbar.bg-dark.navbar-dark.sticky-top.navbar-expand-sm
+  %nav.container-fluid.px-5
+    -# brand/logo
+    %section
+      = link_to root_path, class: "navbar-brand" do
+        = image_tag "https://www.freeiconspng.com/thumbs/blogger-logo-icon-png/blogger-logo-icon-png-22.png", alt: "Brand/Logo", width: "48px", height: "48px", class: "rounded-pill"
+    -# collapsible navbar toggler
+    %section
+      = link_to "#", type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapsible-navbar", class: "navbar-toggler" do
+        %i.navbar-toggler-icon
+    -# collapsible navbar
+    %section#collapsible-navbar.collapse.navbar-collapse.justify-content-end
+      -# links
+      %ul.navbar-nav.navbar-nav-scroll
+        - if current_user
+          %li.nav-item
+            = link_to articles_path(anchor: "articles"), class: "nav-link" do
+              %i.fas.fa-home
+              Home
+          %li.nav-item.dropdown.dropstart
+            = link_to "#", role: "button", "data-bs-toggle" => "dropdown", class: "nav-link dropdown-toggle" do
+              %i.fas.fa-user-alt
+              Account
+            %ul.dropdown-menu.dropdown-menu-dark
+              %li
+                = link_to "#", class: "dropdown-item" do
+                  %i.fas.fa-user-alt
+                  = current_user.email
+              %li
+                %hr.dropdown-divider
+              %li
+                = link_to destroy_user_session_path, method: :delete, rel: "nofollow", data: { confirm: "Are you sure you want to sign out?" }, class: "dropdown-item" do
+                  %i.fas.fa-sign-out-alt
+                  Sign out
+        - else
+          %li.nav-item
+            = link_to new_user_session_path, class: "nav-link" do
+              %i.fas.fa-sign-in-alt
+              Sign in
+          %li.nav-item
+            = link_to new_user_registration_path, class: "nav-link" do
+              %i.fas.fa-user-plus
+              Sign up
