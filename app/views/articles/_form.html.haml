@@ -16,7 +16,7 @@
       .invalid-feedback Invalid
     .form-group
       = form.label :body
-      = form.rich_text_area :body, required: true, rows: 7, class: "form-control"
+      = form.rich_text_area :body, data: { controller: "mentions", target: "mentions.field" }, class: "form-control"
       .valid-feedback Valid
       .invalid-feedback Invalid
     %h2 Tags
