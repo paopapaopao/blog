@@ -19,6 +19,7 @@
           = article.comments.size
           %i.fas.fa-share.mx-2
           0
+          = social_share_button_tag(article.name)
         .d-flex
           %a#dropdownMenuLink{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button", style: "color: inherit;"}
             %i.fas.fa-ellipsis-v{style: "margin-right: auto"}
