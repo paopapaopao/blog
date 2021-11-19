@@ -68,3 +68,5 @@ gem 'ransack'
 gem 'simple_form'
 gem 'acts_as_votable'
 gem 'haml-rails', '~> 2.0'
+
+gem 'social-share-button'
