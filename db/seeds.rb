@@ -8,6 +8,18 @@
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
+User.create(
+  email: 'emanpao@yahoo.com',
+  password: :password,
+  confirmed_at: DateTime.now,
+  approved: true
+)
+User.create(
+  email: 'paolo.casugay@gmail.com',
+  password: :password,
+  confirmed_at: DateTime.now,
+  approved: true
+)
 nightking = User.create(
   email: 'nightking@example.com',
   password: :password,
