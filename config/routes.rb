@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         patch "downvote", to: "articles#downvote"
       end
     end
+
+    get '/users/:id' => 'users#show', as: :user
   end
 
   # aayusin pa
