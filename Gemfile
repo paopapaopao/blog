@@ -59,6 +59,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'rubocop', require: false
 gem 'rails-controller-testing'
 gem 'faker'
 gem 'devise'
@@ -68,5 +69,4 @@ gem 'ransack'
 gem 'simple_form'
 gem 'acts_as_votable'
 gem 'haml-rails', '~> 2.0'
-
 gem 'social-share-button'
